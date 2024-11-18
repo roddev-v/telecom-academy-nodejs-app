@@ -11,6 +11,7 @@ class UsersController {
    * ]
    *  */
   users = [];
+  currentId = 1;
 
   getAll() {
     return this.users;
@@ -23,6 +24,8 @@ class UsersController {
   }
 
   create(user) {
+    user.id = this.currentId;
+    this.currentId += 1;
     this.users.push(user);
   }
 
