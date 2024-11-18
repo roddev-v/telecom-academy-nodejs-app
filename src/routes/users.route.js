@@ -1,28 +1,42 @@
 const UsersController = require("../controllers/users.controller");
 class UsersRoute {
+  usersController;
+
   constructor(app) {
-    this.initRoutes(app);
     this.usersController = new UsersController();
+    this.initRoutes(app);
   }
 
   initRoutes(app) {
-    app.get("/users", function (req, res) {
-      res.send("Hello world!");
+    app.get("/users", (req, res) => {
+      const users = this.usersController.getAll();
+      res.json(users);
     });
 
-    app.get("/users/:id", function (req, res) {
+    app.get("/users/:id", (req, res) => {
       const userId = parseInt(req.params.id);
-      res.json({ id: userId });
+      const user = this.usersController.get(userId);
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
     });
 
-    app.post("/users", function (req, res) {
+    app.post("/users", (req, res) => {
       const user = req.body;
-      res.json({ user: user });
+      this.usersController.create(user);
+      res.json(user);
     });
 
-    app.delete("/users/:id", function (req, res) {
+    app.delete("/users/:id", (req, res) => {
       const userId = parseInt(req.params.id);
-      res.send({ id: userId });
+      const deletedUserId = this.usersController.delete(userId);
+      if (deletedUserId) {
+        res.send({ id: userId });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
     });
   }
 }

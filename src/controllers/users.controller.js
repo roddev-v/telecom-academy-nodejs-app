@@ -27,10 +27,14 @@ class UsersController {
   }
 
   delete(id) {
-    const index = this.users.findIndex(function(user) {
-        return user.id === id;
+    const index = this.users.findIndex(function (user) {
+      return user.id === id;
     });
+    if (index < 0) {
+      return;
+    }
     this.users.splice(index, 1);
+    return id;
   }
 }
 
