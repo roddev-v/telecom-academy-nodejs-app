@@ -7,13 +7,15 @@
   "license": "ISC",
   "description": "",
   "scripts": {
-    "start": "nodemon src/app.js"
+    "start": "nodemon src/app.js",
+    "build": "tsc"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
     "express": "^4.21.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "typescript": "^5.6.3"
   }
 }
