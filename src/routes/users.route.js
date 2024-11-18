@@ -10,8 +10,19 @@ class UsersRoute {
       res.send("Hello world!");
     });
 
+    app.get("/users/:id", function (req, res) {
+      const userId = parseInt(req.params.id);
+      res.json({ id: userId });
+    });
+
     app.post("/users", function (req, res) {
-      res.send("Hello world - POST!");
+      const user = req.body;
+      res.json({ user: user });
+    });
+
+    app.delete("/users/:id", function (req, res) {
+      const userId = parseInt(req.params.id);
+      res.send({ id: userId });
     });
   }
 }

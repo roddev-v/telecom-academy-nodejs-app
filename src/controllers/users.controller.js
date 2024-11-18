@@ -26,7 +26,7 @@ class UsersController {
     this.users.push(user);
   }
 
-  delete(id) { // 3
+  delete(id) {
     const index = this.users.findIndex(function(user) {
         return user.id === id;
     });
