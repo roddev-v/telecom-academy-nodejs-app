@@ -1,13 +1,13 @@
 {
-    "exclude": [
-        "node_modules"
-    ],
-    "include": [
-        "src/**/*.ts"
-    ],
-    "compilerOptions": {
-        "target": "ES6",
-        "outDir": "./build",
-        "baseUrl": "/src"
-    }
+  "exclude": ["node_modules"],
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "outDir": "./build",
+    "baseUrl": "/src",
+    "moduleResolution": "node10",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  }
 }

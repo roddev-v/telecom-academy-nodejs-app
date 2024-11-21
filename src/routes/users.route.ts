@@ -1,14 +1,16 @@
-const UsersController = require("../controllers/users.controller");
-class UsersRoute {
-  usersController;
+import { UsersController } from "../controllers/users.controller";
+import express from "express";
 
-  constructor(app) {
+export class UserRoute {
+  usersController: UsersController;
+
+  constructor(app: express.Express) {
     this.usersController = new UsersController();
     this.initRoutes(app);
   }
 
-  initRoutes(app) {
-    app.get("/users", (req, res) => {
+  initRoutes(app: express.Express): void {
+    app.get("/users", (_, res) => {
       const users = this.usersController.getAll();
       res.json(users);
     });
@@ -40,5 +42,3 @@ class UsersRoute {
     });
   }
 }
-
-module.exports = UsersRoute;
