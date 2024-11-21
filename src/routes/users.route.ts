@@ -10,8 +10,9 @@ export class UserRoute {
   }
 
   initRoutes(app: express.Express): void {
-    app.get("/users", (_, res) => {
-      const users = this.usersController.getAll();
+    app.get("/users", async (_, res) => {
+      const users = await this.usersController.getAll();
+      console.log("Users from UsersRoute", users);
       res.json(users);
     });
 

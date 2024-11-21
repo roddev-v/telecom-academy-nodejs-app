@@ -1,3 +1,7 @@
+import mysql from "mysql2";
+import { DB_CONFIG } from "../db/config";
+import { executeQuery } from "../utils/db-helper";
+
 type User = {
   id: number;
   name: string;
@@ -5,33 +9,26 @@ type User = {
 };
 
 export class UsersController {
-  users: User[] = [];
-  currentId = 1;
+  client: mysql.Connection;
 
-  getAll(): User[] {
-    return this.users;
+  constructor() {
+    this.client = mysql.createConnection(DB_CONFIG);
+    this.client.connect();
+  }
+
+  async getAll(): Promise<User[]> {
+    const users = await executeQuery("SELECT * FROM users");
+    console.log('Users from UserController', users);
+    return [];
   }
 
   get(id: number): User | undefined {
-    return this.users.find(function (user) {
-      return user.id === id;
-    });
+    return;
   }
 
-  create(user: User): void {
-    user.id = this.currentId;
-    this.currentId += 1;
-    this.users.push(user);
-  }
+  create(user: User): void {}
 
   delete(id: number): number | undefined {
-    const index = this.users.findIndex(function (user) {
-      return user.id === id;
-    });
-    if (index < 0) {
-      return;
-    }
-    this.users.splice(index, 1);
-    return id;
+    return;
   }
 }
