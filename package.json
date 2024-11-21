@@ -7,8 +7,8 @@
   "license": "ISC",
   "description": "",
   "scripts": {
-    "start": "nodemon src/app.js",
-    "build": "tsc"
+    "compile": "tsc",
+    "build": "npm run compile && node build/app.js"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
