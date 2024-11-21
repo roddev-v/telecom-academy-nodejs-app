@@ -6,7 +6,6 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "type": "module",
   "scripts": {
     "start": "nodemon src/app.js",
     "build": "tsc"
