@@ -16,10 +16,10 @@ export class UsersController {
     this.client.connect();
   }
 
-  async getAll(): Promise<User[]> {
+  async getAll() {
     const users = await executeQuery("SELECT * FROM users");
     console.log('Users from UserController', users);
-    return [];
+    return users;
   }
 
   get(id: number): User | undefined {
