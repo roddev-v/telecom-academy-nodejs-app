@@ -26,15 +26,15 @@ export class UserRoute {
       }
     });
 
-    app.post("/users", (req, res) => {
+    app.post("/users", async (req, res) => {
       const user = req.body;
-      this.usersController.create(user);
+      await this.usersController.create(user);
       res.json(user);
     });
 
-    app.delete("/users/:id", (req, res) => {
+    app.delete("/users/:id", async (req, res) => {
       const userId = parseInt(req.params.id);
-      const deletedUserId = this.usersController.delete(userId);
+      const deletedUserId = await this.usersController.delete(userId);
       if (deletedUserId) {
         res.send({ id: userId });
       } else {

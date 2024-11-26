@@ -18,7 +18,6 @@ export class UsersController {
 
   async getAll() {
     const users = await executeQuery("SELECT * FROM users");
-    console.log('Users from UserController', users);
     return users;
   }
 
@@ -26,9 +25,19 @@ export class UsersController {
     return;
   }
 
-  create(user: User): void {}
+  async create(user: User): Promise<void> {
+    await executeQuery("INSERT INTO users(name, email) VALUES(?,?)", [
+      user.name,
+      user.email,
+    ]);
+  }
 
-  delete(id: number): number | undefined {
-    return;
+  async delete(id: number): Promise<number | undefined> {
+    const result = await executeQuery("DELETE FROM users WHERE id = ?", [id]) as {affectedRows: number} ;
+    if (result.affectedRows === 0) {
+      return;
+    } else {
+      return id;
+    }
   }
 }
