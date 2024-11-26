@@ -21,8 +21,9 @@ export class UsersController {
     return users;
   }
 
-  get(id: number): User | undefined {
-    return;
+  async get(id: number): Promise<User | undefined> {
+    const users = await executeQuery("SELECT * FROM users WHERE id = ?", [id]);
+    return users[0];
   }
 
   async create(user: User): Promise<void> {

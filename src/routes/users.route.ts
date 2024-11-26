@@ -16,9 +16,9 @@ export class UserRoute {
       res.json(users);
     });
 
-    app.get("/users/:id", (req, res) => {
+    app.get("/users/:id", async (req, res) => {
       const userId = parseInt(req.params.id);
-      const user = this.usersController.get(userId);
+      const user = await this.usersController.get(userId);
       if (user) {
         res.json(user);
       } else {
