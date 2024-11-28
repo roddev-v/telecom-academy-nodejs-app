@@ -15,6 +15,16 @@ class PostsController {
     });
   }
 
+  async getByLikes() {
+    const res = await this.db
+      .collection("posts")
+      .where("likesNumber", ">", 40)
+      .get();
+    return res.docs.map((item) => {
+      return item.data();
+    });
+  }
+
   async get(id: string) {
     const response = await this.db.collection("posts").doc(id).get();
     return response.data();
