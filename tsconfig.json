@@ -8,6 +8,7 @@
     "baseUrl": "/src",
     "moduleResolution": "node10",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
   }
 }
