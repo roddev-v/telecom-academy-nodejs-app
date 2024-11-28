@@ -4,6 +4,7 @@ import { PORT } from "./utils/constants";
 import { UserRoute } from "./routes/users.route";
 import * as firebaseConfig from './db/firebase-config.json';
 import * as admin from 'firebase-admin'
+import { PostsRoute } from "./routes/posts.route";
 
 const app = express();
 
@@ -13,6 +14,7 @@ admin.initializeApp({
 
 app.use(bodyParser.json());
 
+new PostsRoute(app);
 new UserRoute(app);
 
 app.listen(PORT, () => {
