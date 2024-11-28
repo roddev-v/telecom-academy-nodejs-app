@@ -31,7 +31,7 @@ export class PostsRoute {
       res.json(post);
     });
 
-    app.delete("/users/:id", async (req, res) => {
+    app.delete("/posts/:id", async (req, res) => {
         const postId = req.params.id;
         await this.postsController.delete(postId);
         res.send({ id: postId });
