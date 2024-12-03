@@ -10,7 +10,14 @@ export class UserRoute {
   }
 
   initRoutes(app: express.Express): void {
-    app.get("/users", async (_, res) => {
+    app.get("/users", async (req, res) => {
+
+      // validare query parameters care pot avea o serie de valori limitate
+      if(req.query.sort !== 'ASC' && req.query.sort !== 'DESC') {
+        res.status(400).json({message: 'Invalid user id'});
+        return;
+      }
+
       const users = await this.usersController.getAll();
       console.log("Users from UsersRoute", users);
       res.json(users);
@@ -18,6 +25,13 @@ export class UserRoute {
 
     app.get("/users/:id", async (req, res) => {
       const userId = parseInt(req.params.id);
+
+      // validare parametru numeric
+      if(isNaN(userId)) {
+        res.status(400).json({message: 'Invalid user id'});
+        return;
+      }
+
       const user = await this.usersController.get(userId);
       if (user) {
         res.json(user);
@@ -34,6 +48,13 @@ export class UserRoute {
 
     app.delete("/users/:id", async (req, res) => {
       const userId = parseInt(req.params.id);
+
+      // validare parametru numeric
+      if(isNaN(userId)) {
+        res.status(400).json({message: 'Invalid user id'});
+        return;
+      }
+
       const deletedUserId = await this.usersController.delete(userId);
       if (deletedUserId) {
         res.send({ id: userId });
