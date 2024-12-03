@@ -1,5 +1,7 @@
 import { UsersController } from "../controllers/users.controller";
 import express from "express";
+import { UserModel } from "../models/user.model";
+import { validate } from "class-validator";
 
 export class UserRoute {
   usersController: UsersController;
@@ -41,7 +43,18 @@ export class UserRoute {
     });
 
     app.post("/users", async (req, res) => {
-      const user = req.body;
+      const user = req.body; // plain user object
+      const name = user.name;
+      const email = user.email;
+
+      const typedUser = new UserModel(name, email); // typed user object
+      const errors = await validate(typedUser);
+      
+      if(errors.length > 0) {
+        res.status(400).json({errors: errors});
+        return;
+      }
+
       await this.usersController.create(user);
       res.json(user);
     });
