@@ -2,7 +2,6 @@ import { UsersController } from "../controllers/users.controller";
 import express from "express";
 import { UserModel } from "../models/user.model";
 import { validate } from "class-validator";
-import { LocationModel } from "../models/location.model";
 
 export class UserRoute {
   usersController: UsersController;
@@ -14,10 +13,9 @@ export class UserRoute {
 
   initRoutes(app: express.Express): void {
     app.get("/users", async (req, res) => {
-
       // validare query parameters care pot avea o serie de valori limitate
-      if(req.query.sort !== 'ASC' && req.query.sort !== 'DESC') {
-        res.status(400).json({message: 'Invalid user id'});
+      if (req.query.sort !== "ASC" && req.query.sort !== "DESC") {
+        res.status(400).json({ message: "Invalid user id" });
         return;
       }
 
@@ -30,8 +28,8 @@ export class UserRoute {
       const userId = parseInt(req.params.id);
 
       // validare parametru numeric
-      if(isNaN(userId)) {
-        res.status(400).json({message: 'Invalid user id'});
+      if (isNaN(userId)) {
+        res.status(400).json({ message: "Invalid user id" });
         return;
       }
 
@@ -47,9 +45,9 @@ export class UserRoute {
       const user = req.body; // plain user object
       const typedUser = new UserModel(req.body); // typed user object
       const errors = await validate(typedUser);
-      
-      if(errors.length > 0) {
-        res.status(400).json({errors: errors});
+
+      if (errors.length > 0) {
+        res.status(400).json({ errors: errors });
         return;
       }
 
@@ -61,8 +59,8 @@ export class UserRoute {
       const userId = parseInt(req.params.id);
 
       // validare parametru numeric
-      if(isNaN(userId)) {
-        res.status(400).json({message: 'Invalid user id'});
+      if (isNaN(userId)) {
+        res.status(400).json({ message: "Invalid user id" });
         return;
       }
 

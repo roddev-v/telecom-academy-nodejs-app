@@ -1,4 +1,13 @@
-import { IsEmail, IsInt, IsString, Max, MaxLength, Min, MinLength, ValidateNested } from "class-validator";
+import {
+  IsEmail,
+  IsInt,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+  MinLength,
+  ValidateNested,
+} from "class-validator";
 import { LocationModel } from "./location.model";
 
 class UserModel {
@@ -7,7 +16,9 @@ class UserModel {
   @MaxLength(20)
   name: string;
 
-  @IsEmail()
+  @IsEmail(undefined, {
+    message: "Your email should contain the @ sign and a valid domain",
+  })
   email: string;
 
   @IsInt()
@@ -24,4 +35,4 @@ class UserModel {
   }
 }
 
-export {UserModel};
+export { UserModel };
