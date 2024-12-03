@@ -1,4 +1,5 @@
-import { IsEmail, IsString, MaxLength, MinLength } from "class-validator";
+import { IsEmail, IsInt, IsString, Max, MaxLength, Min, MinLength, ValidateNested } from "class-validator";
+import { LocationModel } from "./location.model";
 
 class UserModel {
   @IsString()
@@ -9,9 +10,17 @@ class UserModel {
   @IsEmail()
   email: string;
 
-  constructor(n: string, e: string) {
-    this.email = e;
-    this.name = n;
+  @IsInt()
+  @Min(18)
+  @Max(40)
+  age: number;
+
+  @ValidateNested()
+  location: LocationModel;
+
+  constructor(body: any) {
+    Object.assign(this, body);
+    this.location = new LocationModel(body.location);
   }
 }
 
